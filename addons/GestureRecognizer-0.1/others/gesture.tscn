@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cumbq2cnvkmnr"]
+
+[ext_resource type="Script" path="res://addons/gesture_recognizer/scripts/ControlGesture.gd" id="1_gh2dv"]
+
+[sub_resource type="Curve" id="Curve_c2dq5"]
+max_value = 3.0
+_data = [Vector2(0.1, 1.3), 0.0, 0.0, 0, 0, Vector2(0.5, 2.5), 0.0, 0.0, 0, 0, Vector2(0.9, 0.8), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1dlrd"]
+size = Vector2(611, 1223)
+
+[node name="Gesture" type="Area2D"]
+script = ExtResource("1_gh2dv")
+widthCurve = SubResource("Curve_c2dq5")
+outlineColor = Color(0.717647, 0, 0, 1)
+createGesture = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(295.5, 601.5)
+shape = SubResource("RectangleShape2D_1dlrd")
+
+[node name="Node" type="Node" parent="."]
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

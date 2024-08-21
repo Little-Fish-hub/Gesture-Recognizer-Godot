@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://bs6keo6l4mam1"]
+
+[ext_resource type="Script" path="res://addons/gesture_recognizer/scripts/BottomCrear.gd" id="1_lwkrj"]
+
+[node name="BottomCrear" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_lwkrj")
+
+[node name="crea" type="Button" parent="."]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 22.0
+offset_right = 81.0
+offset_bottom = 53.0
+text = "Create"
+
+[connection signal="button_up" from="crea" to="." method="_on_crea_button_up"]
