@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqhmoay1vjx8p"]
+
+[ext_resource type="Script" path="res://addons/gesture_recognizer/scripts/ControlGesture.gd" id="1_j2x80"]
+[ext_resource type="Script" path="res://node_2d.gd" id="1_ulnrq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6r35x"]
+size = Vector2(1178, 676)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("gest")]
+script = ExtResource("1_ulnrq")
+gest = NodePath("Gesture")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Gesture" type="Area2D" parent="."]
+script = ExtResource("1_j2x80")
+lineWidth = 9
+customButtomUI = "ui_a"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gesture"]
+position = Vector2(5, 7)
+shape = SubResource("RectangleShape2D_6r35x")

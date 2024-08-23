@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cketr25x8fskw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8eiwt"]
+size = Vector2(90, 90)
+
+[sub_resource type="BoxMesh" id="BoxMesh_og8dl"]
+size = Vector3(90, 90, 1)
+
+[node name="Box" type="RigidBody2D"]
+position = Vector2(590, 144)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8eiwt")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+modulate = Color(1, 0.576471, 1, 1)
+mesh = SubResource("BoxMesh_og8dl")

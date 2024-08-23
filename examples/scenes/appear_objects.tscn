@@ -1,0 +1,108 @@
+[gd_scene load_steps=9 format=3 uid="uid://bs47pheanp4e3"]
+
+[ext_resource type="Script" path="res://scripts/appear_objects.gd" id="1_pgfte"]
+[ext_resource type="Script" path="res://addons/gesture_recognizer/scripts/ControlGesture.gd" id="1_y42jb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y3gqj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vjvgi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_22hja"]
+size = Vector2(1232, 60)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11hk6"]
+albedo_color = Color(0.4204, 0.383178, 0.219727, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6rigs"]
+lightmap_size_hint = Vector2i(14, 21)
+material = SubResource("StandardMaterial3D_11hk6")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7tm1w"]
+size = Vector2(1173, 684)
+
+[node name="AppearObjects" type="Node2D"]
+script = ExtResource("1_pgfte")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_left = 25.0
+offset_top = 29.0
+offset_right = 212.0
+offset_bottom = 143.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Draw a:"
+
+[node name="Label2" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "    - Heart"
+label_settings = SubResource("LabelSettings_y3gqj")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer/Panel/VBoxContainer/Label2"]
+visible = false
+modulate = Color(1, 1, 1, 0.529412)
+position = Vector2(50.2102, 13.3693)
+scale = Vector2(-75.3653, 1.08764)
+mesh = SubResource("BoxMesh_vjvgi")
+
+[node name="Label3" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "    - Circle"
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer/Panel/VBoxContainer/Label3"]
+visible = false
+modulate = Color(1, 1, 1, 0.529412)
+position = Vector2(50.2102, 13.3693)
+scale = Vector2(-75.3653, 1.08764)
+mesh = SubResource("BoxMesh_vjvgi")
+
+[node name="Label4" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "    - Box"
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer/Panel/VBoxContainer/Label4"]
+visible = false
+modulate = Color(1, 1, 1, 0.529412)
+position = Vector2(50.2102, 13.3693)
+scale = Vector2(-75.3653, 1.08764)
+mesh = SubResource("BoxMesh_vjvgi")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(571, 648)
+shape = SubResource("RectangleShape2D_22hja")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+modulate = Color(0.618832, 0.447586, 0.246587, 1)
+position = Vector2(570.125, 648.875)
+scale = Vector2(1231.75, 60.25)
+mesh = SubResource("BoxMesh_6rigs")
+
+[node name="Gesture" type="Area2D" parent="."]
+script = ExtResource("1_y42jb")
+buttonForClassify = true
+buttonForClassifyUI = "ui_accept"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gesture"]
+position = Vector2(576.5, 332)
+shape = SubResource("RectangleShape2D_7tm1w")
+
+[node name="ubiAppear" type="Node2D" parent="."]
+position = Vector2(581, 47)
+
+[connection signal="gesture_name" from="Gesture" to="." method="_on_gesture_gesture_name"]
+[connection signal="on_draw_exit" from="Gesture" to="." method="_on_gesture_on_draw_exit"]

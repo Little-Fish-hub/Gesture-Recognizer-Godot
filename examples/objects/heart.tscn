@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqfixyl7k5afi"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_5gks7"]
+size = Vector3(90, 60, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_b4rrd"]
+
+[node name="Heart" type="RigidBody2D"]
+position = Vector2(589, 275)
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, 29, 44, -29, 46, -38, 45, -45, 41, -53, 32, -59, 18, -62, 7, -58, -1, -49, -7, -56, -13, -59, -19, -62, -27, -61, -35, -59, -42, -53, -45, -47, -47, -39, -45, -31)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+modulate = Color(0.883086, 0.328972, 0.581524, 1)
+mesh = SubResource("PrismMesh_5gks7")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="."]
+modulate = Color(0.882353, 0.329412, 0.580392, 1)
+position = Vector2(-22.7373, -39)
+scale = Vector2(47.5283, 45)
+mesh = SubResource("SphereMesh_b4rrd")
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="."]
+modulate = Color(0.882353, 0.329412, 0.580392, 1)
+position = Vector2(20.981, -38.4)
+scale = Vector2(50.2943, 45)
+mesh = SubResource("SphereMesh_b4rrd")
