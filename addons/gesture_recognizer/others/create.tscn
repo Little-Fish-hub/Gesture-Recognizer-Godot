@@ -41,7 +41,7 @@ placeholder_text = "Enter the name of the gesture without spaces"
 
 [node name="Button" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
-text = "Guardar"
+text = "Save"
 
 [node name="Button2" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2

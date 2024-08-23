@@ -19,7 +19,7 @@ var outline = null
 @export var outlineColor : Color = Color.BLACK
 @export var lineCoverLine : bool = false
 
-var isDrawing : bool = false
+var onDrawing : bool = false
 #puntos
 var gestureResource : Gest
 var pointsArray
@@ -43,8 +43,8 @@ var create
 @export var touch : bool = false
 @export var customButton : bool = false
 @export var customButtomUI : String
-@export var earlyAbandoning : bool = true
-@export var lowerBounding : bool = true
+var earlyAbandoning : bool = true
+var lowerBounding : bool = true
 
 @export_subgroup("Classify Gesture")
 @export var buttonForClassify : bool = false
@@ -54,14 +54,16 @@ var create
 #Señales
 var nameGest
 signal gesture_name(gestureName : StringName)
-signal onDrawEnter()
-signal onDrawExit()
-signal lineDisappear()
+signal on_draw_enter()
+signal on_draw_exit()
+signal line_disappear(points : Array)
+var pointsDissapear
 
 #error
 var error : bool = false
 
 func classify():
+	stop_drawing()
 	set_gesture()
 	reset_gesture()
 	if createGesture: # and line != null:
@@ -79,6 +81,9 @@ func _ready():
 	ClassifyGesture = false
 	LUT.clear()
 	gestureResource = Gest.new()
+	
+	if touch:
+		customButton = false
 	
 	CloudRecognizer.earlyAbandoning = earlyAbandoning
 	CloudRecognizer.lowerBounding = lowerBounding
@@ -121,7 +126,7 @@ func _process(delta):
 		if Input.is_action_just_released(customButtomUI):
 			stop_drawing()
 	
-	if isDrawing: # and ( != get_global_mouse_position()):
+	if onDrawing: # and ( != get_global_mouse_position()):
 		var a : Array = line.get_points();
 		if !a.is_empty():
 			if a.back() != get_global_mouse_position():
@@ -137,25 +142,26 @@ func _process(delta):
 		classify()
 
 func _on_input_event(viewport, event, shape_idx):
-	
 	if touch:
 		if event is InputEventScreenTouch and event.pressed:
 			drawing()
 		if event is InputEventScreenTouch and !event.pressed:
 			stop_drawing()
+	
+	
 	elif !customButton:
-		if event is InputEventMouseButton and event.pressed:
+		if event is InputEventMouseButton and event.pressed and event.button_index == 1:
 			drawing()
-		if event is InputEventMouseButton and !event.pressed:
+		if event is InputEventMouseButton and !event.pressed and event.button_index == 1:
 			stop_drawing()
 	
 	pass
 
 func drawing():
-	onDrawEnter.emit()
+	on_draw_enter.emit()
 	error = false
 	
-	isDrawing = true
+	onDrawing = true
 	line = Line2D.new()
 	line.set_default_color(lineColor)
 	line.set_begin_cap_mode(capMode)
@@ -182,8 +188,8 @@ func drawing():
 	pass
 
 func stop_drawing():
-	isDrawing = false;
-	onDrawExit.emit()
+	onDrawing = false;
+	on_draw_exit.emit()
 	
 	if line != null:
 		var smoothedPoints = smooth_points(line.get_points());
@@ -288,7 +294,7 @@ func resize_points(points):
 		newPoints[numPoints] = Vector3(points.back().x, points.back().y, points.back().z)
 	
 	pointsArray = newPoints
-	
+	pointsDissapear = pointsArray
 	pass
 
 func normalize_points(points):
@@ -356,7 +362,7 @@ func LUT_construct():
 	pass
 
 func reset_gesture():
-	lineDisappear.emit()
+	line_disappear.emit(pointsDissapear)
 	
 	for childs in get_node("Line").get_children():
 		childs.queue_free()
@@ -379,3 +385,10 @@ func distance(ubi1, ubi2):
 	dist = Vector2(ubi1.x, ubi1.y).distance_to(Vector2(ubi2.x, ubi2.y))
 	return dist
 	pass
+
+func isDrawing() -> bool:
+	if onDrawing:
+		return true
+	else:
+		return false
+	return false
