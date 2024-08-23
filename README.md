@@ -80,7 +80,7 @@
   - **gesture_name(gestureName : StringName)**: When the classified ends, this signal returns the gesture name.
   - **line_disappear(points : Array)**: Just before the line has been erased, return an array with the line points.
   - **on_draw_enter()**: When you start to draw the line.
-  - **on_draw_exit()**: When you finish the current line. (Not use for the moment)
+  - **on_draw_exit()**: When you finish the current line. (Do not use at the moment, better use "!Gesture.isDrawing()" )
 
 ## Fuctions
   - **classify()**: When you draw a gesture, call this fiction to classify them.
