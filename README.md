@@ -47,8 +47,8 @@
 ## Properties
 ### Line
 
-  - **Cap Mode**: Round the begins and ends of the lines (Gif rounds ends line).
-  - **Min Length Line**: Length minimum for valid line, if length line is minus than this valor, the line will be erased (Gif making lines).
+  - **Cap Mode**: Round the begins and ends of the lines.
+  - **Min Length Line**: Length minimum for valid line, if length line is minus than this valor, the line will be erased.
   - **Line Width**: Width the line.
   - **Smooth**: Smoothing of the line stroke.
   - **Line Color**: Color that the line will have.
@@ -80,7 +80,7 @@
   - **gesture_name(gestureName : StringName)**: When the classified ends, this signal returns the gesture name.
   - **line_disappear(points : Array)**: Just before the line has been erased, return an array with the line points.
   - **on_draw_enter()**: When you start to draw the line.
-  - **on_draw_exit()**: When you finish the current line. (Do not use at the moment, better use "!Gesture.isDrawing()" )
+  - **on_draw_exit()**: When you finish the current line.
 
 ## Fuctions
   - **classify()**: When you draw a gesture, call this fiction to classify them.
