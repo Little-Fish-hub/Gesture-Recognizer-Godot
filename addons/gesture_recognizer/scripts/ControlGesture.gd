@@ -63,7 +63,6 @@ var pointsDissapear
 var error : bool = false
 
 func classify():
-	stop_drawing()
 	set_gesture()
 	reset_gesture()
 	if createGesture: # and line != null:
@@ -77,6 +76,8 @@ func classify():
 	pass
 
 func _ready():
+	smooth = maxi(smooth, 1)
+	
 	connect("input_event", _on_input_event) 
 	ClassifyGesture = false
 	LUT.clear()
@@ -366,8 +367,9 @@ func reset_gesture():
 	
 	for childs in get_node("Line").get_children():
 		childs.queue_free()
-	for childs in get_node("Outline").get_children():
-		childs.queue_free()
+	if Outline:
+		for childs in get_node("Outline").get_children():
+			childs.queue_free()
 	
 
 func reset_gesture_data():
