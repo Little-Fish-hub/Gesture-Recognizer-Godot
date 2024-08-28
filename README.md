@@ -87,6 +87,12 @@
   - **isDrawing()**: Check if you are drawing, bool.
 
 ## Installation
+### Asset Library
+  - In Godot, open the AssetLib tab.
+  - Search for and select "Gesture Recognizer".
+  - Download then install the plugin (be sure to only select the gesture_recognizer directory).
+  - Enable the plugin inside Project/Project Settings/Plugins.
+
 
 ### Github Releases
   - Download a [release build](https://github.com/Little-Fish-hub/Gesture-Recognizer-Godot/releases).
