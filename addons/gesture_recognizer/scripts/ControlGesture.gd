@@ -45,6 +45,8 @@ var create
 @export var customButtomUI : String
 var earlyAbandoning : bool = true
 var lowerBounding : bool = true
+@export var customDir : bool = false
+@export var customDirUI : String = ""
 
 @export_subgroup("Classify Gesture")
 @export var buttonForClassify : bool = false
@@ -53,7 +55,7 @@ var lowerBounding : bool = true
 
 #Señales
 var nameGest
-signal gesture_name(gestureName : StringName)
+signal gesture_name(gestureName : StringName,  disCloudPoint : float)
 signal on_draw_enter()
 signal on_draw_exit()
 signal line_disappear(points : Array)
@@ -61,6 +63,8 @@ var pointsDissapear
 
 #error
 var error : bool = false
+
+
 
 func classify():
 	set_gesture()
@@ -71,11 +75,17 @@ func classify():
 		if !LUT.is_empty():
 			if !error:
 				nameGest = CloudRecognizer.classify(gestureResource)
-				gesture_name.emit(nameGest)
+				var distCloud =  CloudRecognizer.dist()
+				gesture_name.emit(nameGest, distCloud)
 		reset_gesture_data()
 	pass
 
 func _ready():
+	
+	if customDir:
+		CloudRecognizer.customDir = true
+		CloudRecognizer.customDirUI = customDirUI
+	
 	smooth = maxi(smooth, 1)
 	
 	connect("input_event", _on_input_event) 

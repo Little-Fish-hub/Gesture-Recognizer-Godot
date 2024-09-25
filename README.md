@@ -72,12 +72,15 @@
 
     If touch or Custom Button are not active by default the mouse will be used.
 
+  - **Custom Dir**: Make true if you want use a custom gesture directory
+  - **Custom Dir UI**: Write here the directory without "res://" and the last "/". Example: If you directory folder is "res://gesture/level_1/" you must write "gesture/level_1"
+
 ### Classify Gesture
   - **Button For Classify**: Use a custom input for classify the gesture.
   - **Button For Classify UI**: If Button For Classify is active, you should put here the ui of the input to use.
 
 ## Signals
-  - **gesture_name(gestureName : StringName)**: When the classified ends, this signal returns the gesture name.
+  - **gesture_name(gestureName : StringName, disCloudPoint : floeat)**: When the classified ends, this signal returns the gesture name and the similitud percent.
   - **line_disappear(points : Array)**: Just before the line has been erased, return an array with the line points.
   - **on_draw_enter()**: When you start to draw the line.
   - **on_draw_exit()**: When you finish the current line.
