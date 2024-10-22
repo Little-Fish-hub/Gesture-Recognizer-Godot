@@ -1,0 +1,102 @@
+[gd_scene load_steps=9 format=3 uid="uid://cdxs25hwwftc0"]
+
+[ext_resource type="Script" path="res://scripts/simil.gd" id="1_1eqe7"]
+[ext_resource type="Texture2D" uid="uid://b5sy04vdq6q0t" path="res://assets/watercolor-5062356_1920.jpg" id="2_l4pn8"]
+[ext_resource type="Script" path="res://addons/gesture_recognizer/scripts/ControlGesture.gd" id="3_slkwq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_22hja"]
+size = Vector2(1232, 60)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11hk6"]
+albedo_color = Color(0.4204, 0.383178, 0.219727, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6rigs"]
+lightmap_size_hint = Vector2i(14, 21)
+material = SubResource("StandardMaterial3D_11hk6")
+
+[sub_resource type="Curve" id="Curve_nn80n"]
+_data = [Vector2(0.169355, 0.406593), 0.0, 0.0, 0, 0, Vector2(0.524194, 1), 0.0, 0.0, 0, 0, Vector2(0.959677, 0.351648), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7tm1w"]
+size = Vector2(1173, 684)
+
+[node name="AppearObjects" type="Node2D"]
+script = ExtResource("1_1eqe7")
+
+[node name="Watercolor-50623561920" type="Sprite2D" parent="."]
+position = Vector2(667, 472)
+texture = ExtResource("2_l4pn8")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer2"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -252.0
+offset_top = 39.0
+offset_right = 235.0
+offset_bottom = 158.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer2/Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -19.5
+offset_bottom = 19.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer2/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Porcentaje de similitud: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer2/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Press Enter to classify"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(571, 648)
+shape = SubResource("RectangleShape2D_22hja")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+modulate = Color(0.618832, 0.447586, 0.246587, 1)
+position = Vector2(570.125, 648.875)
+scale = Vector2(1231.75, 60.25)
+mesh = SubResource("BoxMesh_6rigs")
+
+[node name="Gesture" type="Area2D" parent="."]
+script = ExtResource("3_slkwq")
+lineWidth = 16
+lineColor = Color(0.867792, 0.0231687, 3.85046e-07, 1)
+widthCurve = SubResource("Curve_nn80n")
+outlineWidth = 10
+outlineColor = Color(0, 0, 0.988235, 1)
+customDir = true
+customDirUI = "oo"
+buttonForClassify = true
+buttonForClassifyUI = "ui_accept"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gesture"]
+position = Vector2(576.5, 332)
+shape = SubResource("RectangleShape2D_7tm1w")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(550, 180, 400, 400, 700, 400)
+closed = true
+
+[connection signal="gesture_name" from="Gesture" to="." method="_on_gesture_gesture_name"]
+[connection signal="on_draw_exit" from="Gesture" to="." method="_on_gesture_on_draw_exit"]

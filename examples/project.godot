@@ -10,14 +10,19 @@ config_version=5
 
 [application]
 
-config/name="Nuevo Proyecto de Juego"
+config/name="Addon Gesture"
 run/main_scene="res://scenes/appear_objects.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
 
 CloudRecognizer="*res://addons/gesture_recognizer/scripts/CloudRecognizer.gd"
+
+[display]
+
+window/stretch/mode="viewport"
 
 [editor_plugins]
 

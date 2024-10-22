@@ -1,11 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://bs47pheanp4e3"]
+[gd_scene load_steps=11 format=3 uid="uid://b3fip2ijnhx4"]
 
-[ext_resource type="Script" path="res://scripts/appear_objects.gd" id="1_pgfte"]
-[ext_resource type="Script" path="res://addons/gesture_recognizer/scripts/ControlGesture.gd" id="1_y42jb"]
-[ext_resource type="Texture2D" uid="uid://b5sy04vdq6q0t" path="res://assets/watercolor-5062356_1920.jpg" id="3_q5v1u"]
-[ext_resource type="Texture2D" uid="uid://c60dqqxan2i05" path="res://assets/sun.png" id="4_fbs2e"]
-[ext_resource type="Script" path="res://scripts/sun.gd" id="5_rty71"]
-[ext_resource type="Texture2D" uid="uid://bec2gx83qa22w" path="res://assets/8083d36269b0492d2b91b28abf5b3533.png" id="6_j84f5"]
+[ext_resource type="Script" path="res://scripts/appear_objects2.gd" id="1_4ogmh"]
+[ext_resource type="Texture2D" uid="uid://b5sy04vdq6q0t" path="res://assets/watercolor-5062356_1920.jpg" id="2_kkd1b"]
+[ext_resource type="Script" path="res://addons/gesture_recognizer/scripts/ControlGesture.gd" id="3_8lpow"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_y3gqj"]
 
@@ -29,11 +26,11 @@ point_count = 3
 size = Vector2(1173, 684)
 
 [node name="AppearObjects" type="Node2D"]
-script = ExtResource("1_pgfte")
+script = ExtResource("1_4ogmh")
 
 [node name="Watercolor-50623561920" type="Sprite2D" parent="."]
 position = Vector2(667, 472)
-texture = ExtResource("3_q5v1u")
+texture = ExtResource("2_kkd1b")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -41,7 +38,7 @@ texture = ExtResource("3_q5v1u")
 offset_left = 25.0
 offset_top = 29.0
 offset_right = 212.0
-offset_bottom = 170.0
+offset_bottom = 143.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
 layout_mode = 1
@@ -57,7 +54,7 @@ text = "Draw a:"
 
 [node name="Label2" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
 layout_mode = 2
-text = "    - Tree"
+text = "    - Heart"
 label_settings = SubResource("LabelSettings_y3gqj")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer/Panel/VBoxContainer/Label2"]
@@ -69,7 +66,7 @@ mesh = SubResource("BoxMesh_vjvgi")
 
 [node name="Label3" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
 layout_mode = 2
-text = "    - Car"
+text = "    - Circle"
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer/Panel/VBoxContainer/Label3"]
 visible = false
@@ -80,7 +77,7 @@ mesh = SubResource("BoxMesh_vjvgi")
 
 [node name="Label4" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
 layout_mode = 2
-text = "    - Sun"
+text = "    - Box"
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer/Panel/VBoxContainer/Label4"]
 visible = false
@@ -88,10 +85,6 @@ modulate = Color(1, 1, 1, 0.529412)
 position = Vector2(50.2102, 13.3693)
 scale = Vector2(-75.3653, 1.08764)
 mesh = SubResource("BoxMesh_vjvgi")
-
-[node name="Label5" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
-layout_mode = 2
-text = "Press Enter to classify"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -109,7 +102,7 @@ scale = Vector2(1231.75, 60.25)
 mesh = SubResource("BoxMesh_6rigs")
 
 [node name="Gesture" type="Area2D" parent="."]
-script = ExtResource("1_y42jb")
+script = ExtResource("3_8lpow")
 lineWidth = 16
 lineColor = Color(0.950113, 0.716607, 0.884093, 1)
 widthCurve = SubResource("Curve_nn80n")
@@ -123,22 +116,6 @@ shape = SubResource("RectangleShape2D_7tm1w")
 
 [node name="ubiAppear" type="Node2D" parent="."]
 position = Vector2(581, 47)
-
-[node name="Sun" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(1053, 101)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4_fbs2e")
-script = ExtResource("5_rty71")
-
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2(332, 649)
-scale = Vector2(1e-05, 1e-05)
-
-[node name="8083d36269b0492d2b91b28Abf5b3533" type="Sprite2D" parent="Node2D"]
-position = Vector2(5, -215)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("6_j84f5")
 
 [connection signal="gesture_name" from="Gesture" to="." method="_on_gesture_gesture_name"]
 [connection signal="on_draw_exit" from="Gesture" to="." method="_on_gesture_on_draw_exit"]

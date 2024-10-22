@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ds4tryns0s7ve"]
+
+[ext_resource type="Texture2D" uid="uid://dognhpkaijowt" path="res://assets/car.png" id="1_gi5c8"]
+
+[node name="Car" type="RigidBody2D"]
+
+[node name="Car" type="Sprite2D" parent="."]
+position = Vector2(541, 424)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_gi5c8")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1, -1)
+polygon = PackedVector2Array(403, 442, 400, 424, 411, 404, 433, 403, 470, 390, 508, 383, 537, 382, 560, 391, 586, 404, 640, 407, 662, 412, 680, 421, 679, 451, 651, 453, 647, 460, 639, 466, 624, 465, 615, 456, 479, 453, 466, 466, 451, 466, 444, 460, 439, 452, 410, 451)
