@@ -12,6 +12,11 @@ var maxCoords : int = 1024
 var LUTSize : int = 64
 var LUTScale : int = maxCoords / LUTSize
 
+var distCloud : float;
+
+var customDirCheck : bool = false
+var customDir : bool = false
+var customDirUI : String
 
 func _init() -> void:
 	var dir = DirAccess.open("res://gestures")
@@ -23,6 +28,20 @@ func _init() -> void:
 			gestureSet.append(ResourceLoader.load(rName))
 			name = dir.get_next()
 
+func _process(delta: float) -> void:
+	
+	if customDir and customDirUI != "" and !customDirCheck:
+		gestureSet = []
+		var dir = DirAccess.open("res://" + customDirUI + "/")
+		if dir:
+			dir.list_dir_begin()
+			var name = dir.get_next()
+			while name != "":
+				var rName = "res://" + customDirUI + "/" + str(name)
+				gestureSet.append(ResourceLoader.load(rName))
+				name = dir.get_next()
+		customDirCheck = true
+
 func classify(candidate : Gest):
 	var minDistance : float = INF
 	var gestureClass : StringName = "";
@@ -30,10 +49,18 @@ func classify(candidate : Gest):
 		var dist : float = greedy_cloud_match(candidate, template, minDistance)
 		if dist < minDistance:
 			minDistance = dist
+			distCloud = dist
 			gestureClass = template.gestureName
 	prints("recognized gesture:", gestureClass)
 	classified_gesture.emit(gestureClass)
 	return gestureClass
+
+func dist():
+	var dd : float
+	dd = 1 - (distCloud/pow(64, 4))
+	dd *= 100
+	dd = max(0.1, dd)
+	return dd
 
 func greedy_cloud_match(gesture1 : Gest, gesture2 : Gest, minSoFar : float):
 	var n : int = gesture1.pointsInt.size()
